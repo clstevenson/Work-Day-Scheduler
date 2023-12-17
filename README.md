@@ -8,3 +8,7 @@ Events can be saved by clicking on the icon on the right side. Doing so makes th
 The scheduler has been deployed to
 
 <https://clstevenson.github.io/Work-Day-Scheduler/>
+
+Below is a screenshot of the application
+
+![work day scheduler](assets/images/WorkdaySchedulerScreenshot.png)
