@@ -13,30 +13,37 @@ $(function () {
     $('#currentDay').text(now.format("dddd, MMMM D") + "th");
   }
 
-  // initialize the displayed date when loaded
-  displayDate();
+  // initialize the displayed date and schedule when loaded
+  function updateDisplay() {
+    displayDate();  // put up the current date in header
+    var currentHour = dayjs().hour();
+    var blockHour;  // hour of the time block
 
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
+    // select all the schedule divs
+    var timeBlockEl = $("div.time-block");
 
-  // define the function that will be called by the timer
-  // call the function before setting the timer to avoid the delay (unless the delay is short?)
+    // remove the classes
+    timeBlockEl.removeClass("present past future");
 
-  // set up a timer, check it every minute (half-minute? second? Is performance even an issue?)
+    // get array of hours for each block from the ID
+    timeBlockEl.each(function (index) {
+      blockHour = +$(this).attr("ID").split("-")[1];
+      if (blockHour < currentHour) {
+        // it is in the past
+        $(this).addClass("past");
+      } else if (blockHour === currentHour) {
+        // it is in the current time block
+        $(this).addClass("present");
+      } else {
+        // it is in the future
+        $(this).addClass("future");
+      }
+    });
+  }
 
-  // if the date doesn't match that displayed in header, update the header
-  // note that some string manipulation and dayjs will be required
-
-  // if the hour changes, update the schedule display
-  // set up a variable to track the hour
-  // if it changes then change the class of the corresponding time block
-
-  // also need an initialization when the page is first loaded (outside of the interval code?)
-  // or maybe the event timer just updates all of the blocks. Seems a little unnecessary
-
+  // add a timer; how often should it be updated? Every second, every minute?
+  updateDisplay();
+  setInterval(updateDisplay, 1000);
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
