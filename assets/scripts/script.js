@@ -1,9 +1,10 @@
 'use strict';
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 $(function () {
+  /////////////////////////////////////////////////////////////////////////////
+  //                           Function Definitions                          //
+  /////////////////////////////////////////////////////////////////////////////
+
   // function to display the current date in the header
   // called by the same timer that updates the scheduler colors
   function displayDate() {
@@ -69,6 +70,10 @@ $(function () {
     localStorage.workday = JSON.stringify(workday);
   }
 
+  /////////////////////////////////////////////////////////////////////////////
+  //                       Update display and set timer                      //
+  /////////////////////////////////////////////////////////////////////////////
+
   // update the date and the background-colors
   updateBlockColors();
   // add a timer to update colors as the day progresses
@@ -78,9 +83,12 @@ $(function () {
   // update the text being displayed
   showWorkday(getWorkday());
 
+  /////////////////////////////////////////////////////////////////////////////
+  //                         Click listener to save item                     //
+  /////////////////////////////////////////////////////////////////////////////
+
   // TODO also want to offer some visual feedback to the user when the data is saved, maybe
   // a momentary change in the background-color of the icon along with a brief "saved" message
-
   $("div.container-lg").click( function(evt) {
     // only act if the save icon or its button was clicked. In both cases the class name contains "save"
     if ($(evt.target).attr("class").includes("save")) {
