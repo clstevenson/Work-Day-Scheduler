@@ -24,7 +24,7 @@ $(function () {
     timeBlockEl.removeClass("present past future");
 
     // get array of hours for each block from the ID
-    timeBlockEl.each(function (index) {
+    timeBlockEl.each(function () {
       blockHour = +$(this).attr("ID").split("-")[1];
       if (blockHour < currentHour) {
         // it is in the past
@@ -63,7 +63,7 @@ $(function () {
 
   // function to update display of workday in window
   function showWorkday(workday) {
-    $("textarea.description").each(function (index) {
+    $("textarea.description").each(function () {
       // get the hour from the ID of the div container
       var hour = +$(this).closest("div.time-block").attr("ID").split("-")[1];
       // display if not null or undefined
@@ -109,8 +109,7 @@ $(function () {
       // now get the text in the textarea input (and its hour)
       var timeBlockEl = $(evt.target.closest(".time-block"));
       var hour = +timeBlockEl.attr("ID").split("-")[1];
-      var desc = timeBlockEl.find("textarea").val().trim();
-      workday[hour] = desc;
+      workday[hour] = timeBlockEl.find("textarea").val().trim();
       // now save to local storage
       saveWorkday(workday);
     }
