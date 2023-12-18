@@ -39,6 +39,14 @@ $(function () {
     });
   }
 
+  /*
+   * Three functions involving the workday array are below.
+   * The "workday" array is local variable for each function. It is an
+   * array of strings whose index is the hour that the string describes.
+   * This leads to a somewhat sparse array but allows later change of the
+   * html (ie, expansion or contraction of what constitutes a workday).
+   */
+
   // function to retrieve data from local storage
   function getWorkday() {
     if (localStorage.date === dayjs().format("YYYY-MM-DD")) {
@@ -53,17 +61,19 @@ $(function () {
   // function to update display of workday in window
   function showWorkday(workday) {
     $("textarea.description").each(function (index) {
+      // get the hour from the ID of the div container
       var hour = +$(this).closest("div.time-block").attr("ID").split("-")[1];
-      // each entry has a leading space
+      // display if not null or undefined
       if (workday[hour] != null || workday[hour] != undefined) {
         $(this).val(" " + workday[hour]);
       } else {
+        // populate "missing" hours with spaces, like the initial file
         $(this).val(" ");
       }
     });
   }
 
-  // function to write data to local storage
+  // function to write data to local storage (clears it first)
   function saveWorkday(workday) {
     localStorage.clear();
     localStorage.date = dayjs().format("YYYY-MM-DD");
@@ -102,6 +112,6 @@ $(function () {
       // now save to local storage
       saveWorkday(workday);
     }
-  }); // end click event listener
+  });
 
-}); // end ready function
+}); // end document ready function
