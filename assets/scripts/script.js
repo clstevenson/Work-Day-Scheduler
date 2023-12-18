@@ -48,12 +48,15 @@ $(function () {
    */
 
   // function to retrieve data from local storage
+  // new workdays result in a clean slate, returning an empty array
   function getWorkday() {
-    if (localStorage.date === dayjs().format("YYYY-MM-DD")) {
-      return JSON.parse(localStorage.workday);
+    var date = localStorage.date;
+    var workday = localStorage.workday;
+    if (date === undefined) { return [];}
+    if (localStorage.date === dayjs().format("YYYY-MM-DD") && workday !== undefined) {
+      return JSON.parse(workday);
     } else {
       // assuming for a new day we clear the entries
-      localStorage.clear;
       return [];
     }
   }
@@ -75,7 +78,6 @@ $(function () {
 
   // function to write data to local storage (clears it first)
   function saveWorkday(workday) {
-    localStorage.clear();
     localStorage.date = dayjs().format("YYYY-MM-DD");
     localStorage.workday = JSON.stringify(workday);
   }
